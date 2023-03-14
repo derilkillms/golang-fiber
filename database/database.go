@@ -12,7 +12,7 @@ var DB *gorm.DB
 func DatabaseInit() {
 	var err error
 	// refer https://github.com/go-sql-driver/mysql#dsn-data-source-name for details
-	const MYSQL = "root:@tcp(127.0.0.1:3306)/belajar_fiber?charset=utf8mb4&parseTime=True&loc=Local"
+	const MYSQL = "root:root@tcp(localhost:8889)/belajar_fiber?charset=utf8mb4&parseTime=True&loc=Local"
 	dsn := MYSQL
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 

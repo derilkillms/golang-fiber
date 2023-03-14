@@ -25,6 +25,15 @@ func UserHandlerGetAll(ctx *fiber.Ctx) error {
 
 }
 
-func UserHandlerCreate(ctx *fiber.Ctx) {
-
+func UserHandlerRaw(ctx *fiber.Ctx) error {
+	var results []map[string]interface{}
+	nganu := database.DB.Raw("SELECT * FROM users WHERE 1=?", 1).Scan(&results)
+	if nganu.Error != nil {
+		panic(nganu.Error)
+	}
+	return ctx.JSON(results)
 }
+
+// func UserHandlerCreate(ctx *fiber.Ctx) {
+// 	return ctx.SendString("Hello, World!")
+// }
