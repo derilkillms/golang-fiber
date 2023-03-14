@@ -1,6 +1,7 @@
 package main
 
 import (
+	"golang-fiber/database"
 	"golang-fiber/route"
 
 	"github.com/gofiber/fiber/v2"
@@ -8,6 +9,10 @@ import (
 
 func main() {
 	app := fiber.New()
+
+	//INITIAL DATABASE
+	database.DatabaseInit()
+
 	// INITIAL ROUTE
 	route.RouteInit(app)
 	app.Listen(":3000")
