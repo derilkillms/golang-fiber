@@ -24,3 +24,7 @@ func UserHandlerGetAll(ctx *fiber.Ctx) error {
 	return ctx.JSON(users)
 
 }
+
+func UserHandlerCreate(ctx *fiber.Ctx) {
+
+}
