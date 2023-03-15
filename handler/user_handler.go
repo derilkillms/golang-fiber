@@ -37,7 +37,7 @@ func UserHandlerRaw(ctx *fiber.Ctx) error {
 }
 
 func UserHandlerCreate(ctx *fiber.Ctx) error {
-	//INITIAL STRUCT INPUT FORM
+	//INITIAL STRUCT REQUEST USER
 	user := new(request.UserCreateRequest)
 
 	//PARSING FROM REQUEST FORM
@@ -55,7 +55,7 @@ func UserHandlerCreate(ctx *fiber.Ctx) error {
 		})
 	}
 
-	//INITIAL FROM STRUCT INPUT TO STRUCT FIELD TABLE
+	//INITIAL FROM STRUCT REQUEST TO STRUCT FIELD TABLE
 	newUser := entity.User{
 		Name:    user.Name,
 		Email:   user.Email,
@@ -74,4 +74,32 @@ func UserHandlerCreate(ctx *fiber.Ctx) error {
 		"message": "success",
 		"data":    newUser,
 	})
+}
+
+func UserHandlerGetById(ctx *fiber.Ctx) error {
+	userId := ctx.Params("id")
+
+	var user entity.User
+	err := database.DB.First(&user, "id=?", userId).Error
+	if err != nil {
+		return ctx.Status(404).JSON(fiber.Map{
+			"message": "user not found",
+		})
+	}
+
+	// userResponse := response.UserResponse{
+	// 	ID:        user.ID,
+	// 	Name:      user.Name,
+	// 	Email:     user.Email,
+	// 	Address:   user.Address,
+	// 	Phone:     user.Phone,
+	// 	CreatedAt: user.CreatedAt,
+	// 	UpdatedAt: user.UpdatedAt,
+	// }
+
+	return ctx.JSON(fiber.Map{
+		"message": "success",
+		"data":    user,
+	})
+
 }

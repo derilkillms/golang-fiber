@@ -11,4 +11,5 @@ func RouteInit(r *fiber.App) {
 	r.Get("/users", handler.UserHandlerGetAll)
 	r.Get("/raws", handler.UserHandlerRaw)
 	r.Get("/create", handler.UserHandlerCreate)
+	r.Get("/user/:id", handler.UserHandlerGetById)
 }

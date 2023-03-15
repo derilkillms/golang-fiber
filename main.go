@@ -2,6 +2,7 @@ package main
 
 import (
 	"golang-fiber/database"
+	"golang-fiber/database/migration"
 	"golang-fiber/route"
 
 	"github.com/gofiber/fiber/v2"
@@ -12,6 +13,7 @@ func main() {
 
 	//INITIAL DATABASE
 	database.DatabaseInit()
+	migration.RunMigration()
 
 	// INITIAL ROUTE
 	route.RouteInit(app)
