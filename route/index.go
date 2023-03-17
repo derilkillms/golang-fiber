@@ -1,13 +1,14 @@
 package route
 
 import (
+	"golang-fiber/config"
 	"golang-fiber/handler"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func RouteInit(r *fiber.App) {
-	r.Static("/public", "./public/asset")
+	r.Static("/public", config.ProjectRootPath+"/public/asset")
 
 	r.Get("/user", handler.UserHandlerRead)
 	r.Get("/users", handler.UserHandlerGetAll)
