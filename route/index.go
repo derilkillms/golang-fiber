@@ -10,6 +10,9 @@ func RouteInit(r *fiber.App) {
 	r.Get("/user", handler.UserHandlerRead)
 	r.Get("/users", handler.UserHandlerGetAll)
 	r.Get("/raws", handler.UserHandlerRaw)
-	r.Get("/create", handler.UserHandlerCreate)
+	r.Post("/user/create", handler.UserHandlerCreate)
 	r.Get("/user/:id", handler.UserHandlerGetById)
+	r.Put("/user/:id", handler.UserHandlerUpdate)
+	r.Put("/user/:id/update-email", handler.UserHandlerUpdateEmail)
+	r.Delete("/user/:id", handler.UserHandlerDelete)
 }
