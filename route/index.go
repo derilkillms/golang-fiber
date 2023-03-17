@@ -7,6 +7,8 @@ import (
 )
 
 func RouteInit(r *fiber.App) {
+	r.Static("/public", "./public/asset")
+
 	r.Get("/user", handler.UserHandlerRead)
 	r.Get("/users", handler.UserHandlerGetAll)
 	r.Get("/raws", handler.UserHandlerRaw)
