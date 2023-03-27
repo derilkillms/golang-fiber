@@ -3,6 +3,7 @@ package route
 import (
 	"golang-fiber/config"
 	"golang-fiber/handler"
+	"golang-fiber/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -10,8 +11,9 @@ import (
 func RouteInit(r *fiber.App) {
 	r.Static("/public", config.ProjectRootPath+"/public/asset")
 
+	r.Post("/login", handler.LoginHandler)
 	r.Get("/user", handler.UserHandlerRead)
-	r.Get("/users", handler.UserHandlerGetAll)
+	r.Get("/users", middleware.Auth, handler.UserHandlerGetAll)
 	r.Get("/raws", handler.UserHandlerRaw)
 	r.Post("/user/create", handler.UserHandlerCreate)
 	r.Get("/user/:id", handler.UserHandlerGetById)
