@@ -5,7 +5,9 @@ import (
 	"golang-fiber/model/entity"
 	"golang-fiber/model/request"
 	"golang-fiber/utils"
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
@@ -43,8 +45,24 @@ func LoginHandler(ctx *fiber.Ctx) error {
 			"message": "wrong credential",
 		})
 	}
+	//generate jwt
+	claims := jwt.MapClaims{}
+
+	claims["name"] = user.Name
+	claims["email"] = user.Email
+	claims["address"] = user.Address
+	claims["exp"] = time.Now().Add(time.Minute * 2).Unix() // set the expiration time for the token
+	claims["iat"] = time.Now().Unix()                      // set the time the token was issued
+
+	token, errGenerateToken := utils.GenerateToken(&claims)
+	if errGenerateToken != nil {
+		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "error generate token",
+		})
+	}
+
 	return ctx.JSON(fiber.Map{
-		"token": "secret",
+		"token": token,
 	})
 
 }
