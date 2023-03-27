@@ -10,6 +10,7 @@ type UserResponse struct {
 	Address   string    `json:"address"`
 	Phone     string    `json:"phone"`
 	Email     string    `json:"email"`
+	Password  string    `json:"-" gorm:"column:password"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at`
 }
