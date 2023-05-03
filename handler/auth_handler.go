@@ -53,7 +53,10 @@ func LoginHandler(ctx *fiber.Ctx) error {
 	claims["address"] = user.Address
 	claims["exp"] = time.Now().Add(time.Minute * 2).Unix() // set the expiration time for the token
 	claims["iat"] = time.Now().Unix()                      // set the time the token was issued
-
+	claims["role"] = "user"
+	if user.Email == "seizuro@gmail.com" {
+		claims["role"] = "admin"
+	}
 	token, errGenerateToken := utils.GenerateToken(&claims)
 	if errGenerateToken != nil {
 		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
